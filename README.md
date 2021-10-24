@@ -18,3 +18,5 @@ npm run start
 ```
 
 3. Open [http://localhost:8000/news](http://localhost:8000/news) with your browser to see the results of the scrape in your terminal. You can also used certain paramters to get news from individual sources.
+
+![alt text](https://github.com/mahendraputra21/climate-change-api/blob/main/news.png)
