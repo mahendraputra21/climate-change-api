@@ -8,27 +8,27 @@ const newspapers = [
     {
         name: 'cityam',
         address: 'https://www.cityam.com/london-must-become-a-world-leader-on-climate-change-action/',
-        base: ''
+        base: 'https://www.cityam.com'
     },
     {
         name: 'thetimes',
         address: 'https://www.thetimes.co.uk/environment/climate-change',
-        base: ''
+        base: 'https://www.thetimes.co.uk'
     },
     {
         name: 'guardian',
         address: 'https://www.theguardian.com/environment/climate-crisis',
-        base: '',
+        base: 'https://www.theguardian.com',
     },
     {
         name: 'nyt',
         address: 'https://www.nytimes.com/international/section/climate',
-        base: '',
+        base: 'https://www.nytimes.com',
     },
     {
         name: 'latimes',
         address: 'https://www.latimes.com/environment',
-        base: '',
+        base: 'https://www.latimes.com',
     },
     {
         name: 'smh',
@@ -38,7 +38,7 @@ const newspapers = [
     {
         name: 'un',
         address: 'https://www.un.org/climatechange',
-        base: '',
+        base: 'https://www.un.org',
     },
     {
         name: 'bbc',
@@ -53,17 +53,17 @@ const newspapers = [
     {
         name: 'sun',
         address: 'https://www.thesun.co.uk/topic/climate-change-environment/',
-        base: ''
+        base: 'https://www.thesun.co.uk'
     },
     {
         name: 'dm',
         address: 'https://www.dailymail.co.uk/news/climate_change_global_warming/index.html',
-        base: ''
+        base: 'https://www.dailymail.co.uk'
     },
     {
         name: 'nyp',
         address: 'https://nypost.com/tag/climate-change/',
-        base: ''
+        base: 'https://nypost.com'
     }
 ]
 
@@ -81,7 +81,7 @@ newspapers.forEach(newspaper => {
 
                 articles.push({
                     title,
-                    url,
+                    url: url.includes('https://') ? url : newspaper.base + url,
                     source: newspaper.name
                 })
             })
@@ -104,7 +104,7 @@ app.get('/news/:newspaperId', (req, res) =>{
     const newspaperId = req.params.newspaperId
 
     const newspaperAddress = newspapers.filter(newspaper => newspaper.name === newspaperId)[0].address
-    // const newspaperBase = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].base
+    const newspaperBase = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].base
 
     axios.get(newspaperAddress)
          .then(response => {
@@ -117,7 +117,7 @@ app.get('/news/:newspaperId', (req, res) =>{
                 const url = $(this).attr('href')
                 spesificArticles.push({
                     title,
-                    url: url,
+                    url: url.includes('https://') ? url : newspaperBase + url,
                     source: newspaperId
                 })
              })
